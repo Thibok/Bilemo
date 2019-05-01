@@ -12,25 +12,25 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-sm fixed-top" id="nav_container">
-            <a id="logo" href=""><img src="{{ asset('img/logo.png') }}" alt="bilemo logo"/></a>
+            <a id="logo" href="{{ path('bi_login') }}"><img src="{{ asset('img/logo.png') }}" alt="bilemo logo"/></a>
             <ul class="nav">
                 {% if not is_granted('IS_AUTHENTICATED_FULLY')%}
                     <li class="nav-item">
-                        <a id="login" class="nav-link text-light" href="">Log in</a>
+                        <a id="login" class="nav-link text-light" href="{{ path('bi_login') }}">Log in</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a id="space" class="nav-link text-light" href="">My space</a>
+                        <a id="space" class="nav-link text-light" href="{{ path('bi_space') }}">My space</a>
                     </li>
                     <li class="nav-item">
-                        <a id="logout" class="nav-link text-light" href="">Logout</a>
+                        <a id="logout" class="nav-link text-light" href="{{ path('bi_logout') }}">Logout</a>
                     </li>
                 {% endif %}
             </ul>
         </nav>
         {% block body %}{% endblock %}
         <footer class="page-footer">
-            <div id="copyright" class="fixed-bottom footer-copyright text-left py-4 pl-3 bg-dark text-light">Copyright @ 2019</div>
+            <div id="copyright" class="footer-copyright text-left py-4 pl-3 bg-dark text-light">Copyright @ 2019</div>
         </footer>
         {% block javascripts %}
             <script>
