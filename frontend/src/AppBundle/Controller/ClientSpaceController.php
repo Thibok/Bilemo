@@ -24,6 +24,6 @@ class ClientSpaceController extends Controller
      */
     public function spaceAction()
     {
-        return new Response('ok');
+        return $this->render('client_space/space.html.twig');
     }
 }
