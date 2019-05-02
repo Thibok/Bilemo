@@ -70,37 +70,6 @@ class SecurityControllerTest extends WebTestCase
     }
 
     /**
-     * Test user can't access of url when he's not logged
-     * @access public
-     * @param string $url
-     * @dataProvider urlNoAuthUserCantAccess
-     *
-     * @return void
-     */
-    public function testNoAuthUserCantAccess($url)
-    {
-        $this->client->request('GET', $url);
-        $crawler = $this->client->followRedirect();
-
-        $this->assertSame('Login', $crawler->filter('h1')->text());
-    }
-
-    /**
-     * User can't access url when he's not logged
-     * @access public
-     *
-     * @return array
-     */
-    public function urlNoAuthUserCantAccess()
-    {
-        return [
-            [
-                '/space'
-            ],
-        ];
-    }
-
-    /**
      * Test path to Logout
      * @access public
      *

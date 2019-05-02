@@ -37,10 +37,13 @@ footer {
     height: 64px;
 }
 
-#login_container {
+#login_container, #space_container {
     border: 1px solid black;
     margin: auto;
     border-radius: 20px;
+}
+
+#login_container {
     text-align: center;
 }
 
@@ -50,4 +53,18 @@ footer {
 
 h1 {
     font-family: 'bebas-neue';
+}
+
+li {
+    list-style-type: none;
+    font-family: 'Arial';
+    font-size: 0.9em;
+}
+
+#space_api_key {
+    word-wrap: break-word;
+}
+
+a:hover {
+    text-decoration: none;
 }

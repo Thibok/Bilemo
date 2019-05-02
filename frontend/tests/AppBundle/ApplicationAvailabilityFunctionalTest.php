@@ -58,6 +58,57 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
     }
 
     /**
+     * Test if all page with required authentication is up
+     * @access public
+     * @param string $url
+     * @dataProvider authUrlProvider
+     * 
+     * @return void
+     */
+    public function testPageNeedToBeLoggedIsSuccessful($url)
+    {
+        $this->logIn();
+
+        $this->client->request('GET', $url);
+
+        $this->assertTrue($this->client->getResponse()->isSuccessful());
+    }
+
+    /**
+     * Url values for testPageNeedToBeLoggedIsSuccessful
+     * @access public
+     *
+     * @return array
+     */
+    public function authUrlProvider()
+    {
+        return array(
+            array('/space'),
+        );
+    }
+
+    /**
+     * Log user
+     * @access private
+     *
+     * @return void
+     */
+    private function logIn()
+    {
+        $session = $this->client->getContainer()->get('session');
+
+        $firewallName = 'secured_area';
+        $firewallContext = 'secured_area';
+
+        $token = new UsernamePasswordToken('simpleTest', null, $firewallName, array('ROLE_USER'));
+        $session->set('_security_'.$firewallContext, serialize($token));
+        $session->save();
+
+        $cookie = new Cookie($session->getName(), $session->getId());
+        $this->client->getCookieJar()->set($cookie);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function tearDown()
