@@ -10,7 +10,7 @@
                     Connect with Facebook and enjoy the power of the Bilemo API!
                 </p>
                 {% if error %}
-                        <div class="alert alert-danger">{{ error.messageKey }}</div>
+                    <div class="alert alert-danger">{{ error.messageKey }}</div>
                 {% endif %}
                 <a href="https://www.facebook.com/v3.2/dialog/oauth?client_id={{ fb_client_id }}&redirect_uri={{ url('bi_space') }}&state={{ csrf_token('authenticate') }}" type="button" id="fbButton" class="btn btn-info btn-md mb-4"><i class="fa fa-facebook"></i> Authenticate with Facebook</a>
             </div>
