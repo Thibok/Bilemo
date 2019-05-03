@@ -29,7 +29,8 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
-    # add more services, or override services that need manual wiring
-    # AppBundle\Service\ExampleService:
-    #     arguments:
-    #         $someArgument: 'some_value'
+    GuzzleHttp\Client: '@csa_guzzle.client.facebook_api'
+
+    AppBundle\Client\FacebookClient:
+        arguments:
+            $client: '@csa_guzzle.client.facebook_api'

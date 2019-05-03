@@ -69,3 +69,24 @@ swiftmailer:
 sensio_framework_extra:
    router:
         annotations: false
+
+csa_guzzle:
+    clients:
+        facebook_api:
+            config:
+                base_url: https://graph.facebook.com
+
+fos_rest:
+    body_converter:
+        enabled: true
+    view:
+        view_response_listener: true
+        formats: { json: true, xml: false, rss: false }
+    serializer:
+        serialize_null: true
+    format_listener:
+        rules:
+            - { path: '^/', priorities: ['json'], fallback_format: 'json' }
+    exception:
+        enabled: true
+        exception_controller: 'fos_rest.exception.controller:showAction'
