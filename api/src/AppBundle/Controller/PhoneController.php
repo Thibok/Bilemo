@@ -58,9 +58,13 @@ class PhoneController extends FOSRestController
         );
 
         $phones = new Phones($pager);
-
         $body = $serializer->serialize($phones, 'json');
 
-        return new Response($body);
+        $response = new Response($body);
+
+        $response->setSharedMaxAge(3600);
+        $response->headers->addCacheControlDirective('must-revalidate', true);
+
+        return $response;
     }
 }
