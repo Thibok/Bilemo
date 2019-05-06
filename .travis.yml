@@ -4,15 +4,9 @@ php:
  - '7.1'
 
 before_script:
- - cd api/
  - composer install --prefer-source --no-interaction --dev
- - cd ../frontend
- - composer install --prefer-source --no-interaction --dev
- - cd ../
 
-script: 
- - frontend/vendor/bin/phpunit
- - api/vendor/bin/phpunit
+script: vendor/bin/phpunit
 
 language: php
 
@@ -31,16 +25,11 @@ before-install:
 # Install composer dependencies,
 # Create database, schema and fixtures
 install:
- - cd api/
  - composer install
  - cp app/config/parameters.yml.dist app/config/parameters.yml
  - php bin/console doctrine:database:create --env=test
  - php bin/console doctrine:schema:create --env=test
  - php bin/console doctrine:fixtures:load -n --env=test
- - cd frontend/
- - composer install
- - cp app/config/parameters.yml.dist app/config/parameters.yml
- - php bin/console doctrine:database:create --env=test
- - php bin/console doctrine:schema:create --env=test
- - php bin/console doctrine:fixtures:load -n --env=test
- - cd ../
+
+script:
+ - phpunit
