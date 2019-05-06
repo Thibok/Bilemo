@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Phone Entity
+ */
+
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;

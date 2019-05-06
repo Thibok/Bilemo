@@ -1,11 +1,21 @@
 <?php
 
+/**
+ * Normalizer for Doctrine Exception
+ */
+
 namespace AppBundle\Normalizer;
 
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * DoctrineExceptionNormalizer
+ */
 class DoctrineExceptionNormalizer extends AbstractNormalizer
 {
+    /**
+     * @inheritDoc
+     */
     public function normalize(\Exception $exception)
     {
         if (!$this->supports($exception)) {

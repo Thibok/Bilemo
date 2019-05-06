@@ -1,9 +1,16 @@
 <?php
 
+/**
+ * AbstractProduct
+ */
+
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * AbstractProduct
+ */
 abstract class AbstractProduct
 {
     /**
