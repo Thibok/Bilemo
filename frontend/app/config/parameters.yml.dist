@@ -13,6 +13,4 @@ parameters:
     mailer_password: ~
     fb_client_id: 557821161709573
     fb_client_secret: 1afef8baf7e568fdcd850d41edb5f4a5
-
-    # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
