@@ -102,7 +102,7 @@ class FacebookAuthenticator implements SimplePreAuthenticatorInterface, Authenti
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-       $error = $exception->getMessage();
+       $error = 'Authentication error: ' .$exception->getMessage();
 
        $body = [
            'code' => 401,

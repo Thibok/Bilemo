@@ -34,3 +34,15 @@ services:
     AppBundle\Client\FacebookClient:
         arguments:
             $client: '@csa_guzzle.client.facebook_api'
+    
+    JMS\Serializer\Serializer: '@jms_serializer'
+
+    AppBundle\EventListener\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, priority: 255 }
+
+    AppBundle\Normalizer\DoctrineExceptionNormalizer:
+        arguments:
+            - ['Doctrine\DBAL\Exception\ConnectionException', 'Doctrine\ORM\ORMException']
+        tags:
+            - { name: app.normalizer }
