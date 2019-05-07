@@ -46,3 +46,9 @@ services:
             - ['Doctrine\DBAL\Exception\ConnectionException', 'Doctrine\ORM\ORMException']
         tags:
             - { name: app.normalizer }
+
+    AppBundle\Normalizer\NotFoundHttpExceptionNormalizer:
+        arguments:
+            - { type: 'Symfony\Component\HttpKernel\Exception\NotFoundHttpException' }
+        tags:
+            - { name: app.normalizer }

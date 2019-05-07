@@ -1,4 +1,0 @@
-<?php return array (
-  0 => 9223372036854775807,
-  1 => 'a:1:{i:0;O:41:"Hateoas\\Configuration\\Annotation\\Relation":5:{s:4:"name";s:18:"authenticated_user";s:4:"href";N;s:8:"embedded";O:41:"Hateoas\\Configuration\\Annotation\\Embedded":3:{s:7:"content";s:60:"expr(service(\'security.token_storage\').getToken().getUser())";s:14:"xmlElementName";N;s:9:"exclusion";N;}s:10:"attributes";a:0:{}s:9:"exclusion";N;}}',
-);

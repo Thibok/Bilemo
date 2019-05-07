@@ -54,7 +54,8 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         return array(
             array(
                 'GET',
-                '/phones'
+                '/phones',
+                '/phones/1'
             )
         );
     }
