@@ -28,7 +28,7 @@ class PhoneControllerTest extends WebTestCase
     }
 
     /**
-     * Test list action PhoneController
+     * Test listAction
      * @access public
      * 
      * @return void
@@ -71,6 +71,61 @@ class PhoneControllerTest extends WebTestCase
         $this->assertNotNull($authenticatedUser['facebook_id']);
         $this->assertSame('ROLE_USER', $authenticatedUser['roles'][0]);
         $this->assertNotNull($authenticatedUser['access_token']);
+    }
+
+    /**
+     * Test viewAction
+     *
+     * @return void
+     */
+    public function testViewAction()
+    {
+        $this->initializeBearerAuthorization('main');
+        $this->client->request('GET', '/phones/1');
+
+        $response = $this->client->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $body = json_decode($response->getContent(), true);
+        $authenticatedUser = $body['_embedded']['authenticated_user'];
+
+        $description = 'Apple make the best phone !';
+
+        $this->assertNotNull($body['id']);
+        $this->assertSame('Apple', $body['brand']);
+        $this->assertSame('800.00', $body['price']);
+        $this->assertSame($description, $body['description']);
+        $this->assertSame('IPhone XR', $body['model']);
+        $this->assertEquals(64, $body['memory']);
+        $this->assertSame('Black', $body['color']);
+        $this->assertNotNull($body['_links']['self']['href']);
+
+        $this->assertNotNull($authenticatedUser['id']);
+        $this->assertSame('Bryan', $authenticatedUser['first_name']);
+        $this->assertSame('Test', $authenticatedUser['last_name']);
+        $this->assertNotNull($authenticatedUser['facebook_id']);
+        $this->assertSame('ROLE_USER', $authenticatedUser['roles'][0]);
+        $this->assertNotNull($authenticatedUser['access_token']);
+    }
+
+    /**
+     * Test viewAction with unknow phone param
+     *
+     * @return void
+     */
+    public function testViewActionWithUnknowPhone()
+    {
+        $this->initializeBearerAuthorization('main');
+        $this->client->request('GET', '/phones/unknowPhone');
+
+        $response = $this->client->getResponse();
+
+        $this->assertEquals(404, $response->getStatusCode());
+
+        $body = json_decode($response->getContent(), true);
+        $this->assertEquals(404, $body['code']);
+        $this->assertSame('This resource does not exist', $body['message']);
     }
 
     /**
