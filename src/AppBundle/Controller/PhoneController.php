@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Phone;
 use JMS\Serializer\Serializer;
 use AppBundle\Representation\Phones;
 use JMS\Serializer\SerializerBuilder;
@@ -21,10 +22,11 @@ class PhoneController extends FOSRestController
      *     name = "bi_view_phone",
      *     requirements = {"id"="\d+"}
      * )
+     * @Rest\View()
      */
-    public function viewAction()
+    public function viewAction(Phone $phone)
     {
-        return new Response('ok');
+        return $phone;
     }
 
     /**
