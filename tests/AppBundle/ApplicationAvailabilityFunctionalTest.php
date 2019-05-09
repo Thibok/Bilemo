@@ -28,22 +28,6 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
     }
 
     /**
-     * Test if all url return a success response
-     * @access public
-     * @param string $url
-     * @dataProvider urlProvider
-     * 
-     * @return void
-     */
-    public function testResponseSuccessful($method, $url)
-    {
-        $this->initializeBearerAuthorization('main');
-        $this->client->request('GET', $url);
-
-        $this->assertTrue($this->client->getResponse()->isSuccessful());
-    }
-
-    /**
      * Url values
      * @access public
      *
@@ -54,8 +38,15 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         return array(
             array(
                 'GET',
-                '/phones',
+                '/phones'
+            ),
+            array(
+                'GET',
                 '/phones/1'
+            ),
+            array(
+                'POST',
+                '/customers'
             )
         );
     }

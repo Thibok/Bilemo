@@ -73,7 +73,7 @@ class Customer
      *      maxMessage = "The first name must be at least 40 characters"
      * )
      * @Assert\Regex(
-     *      pattern = "/^[a-zA-Z]+-?[a-zA-Z]{1,}/",
+     *      pattern = "/^[a-zA-Z]+-?[a-zA-Z]{1,}$/",
      *      message = "The first name can only contain letters and a dash"
      * )
      * @Serializer\Expose
@@ -92,7 +92,7 @@ class Customer
      *      maxMessage = "The last name must be at least 40 characters"
      * )
      * @Assert\Regex(
-     *      pattern = "/^[a-zA-Z]+-?[a-zA-Z]{1,}/",
+     *      pattern = "/^[a-zA-Z]+-?[a-zA-Z]{1,}$/",
      *      message = "The last name can only contain letters and a dash"
      * )
      * @Serializer\Expose
@@ -130,7 +130,7 @@ class Customer
      *      maxMessage = "The country name must be at least 20 characters"
      * )
      * @Assert\Regex(
-     *      pattern = "/^[a-zA-Z]+-?[a-zA-Z]{1,}/",
+     *      pattern = "/^[a-zA-Z]+-?[a-zA-Z]{1,}$/",
      *      message = "The country can only contain letters and a dash"
      * )
      * @Serializer\Expose
@@ -307,7 +307,7 @@ class Customer
      *
      * @return Customer
      */
-    public function setAdress($address)
+    public function setAddress($address)
     {
         $this->address = $address;
 

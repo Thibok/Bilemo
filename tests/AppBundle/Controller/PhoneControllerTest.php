@@ -82,8 +82,14 @@ class PhoneControllerTest extends WebTestCase
     public function testViewAction()
     {
         $this->initializeBearerAuthorization('main');
-        $this->client->request('GET', '/phones/1');
 
+        $this->client->request('GET', '/phones?limit=1');
+        $response = $this->client->getResponse();
+
+        $body = json_decode($response->getContent(), true);
+        $url = $body['data'][0]['_links']['self']['href'];
+
+        $this->client->request('GET', $url);
         $response = $this->client->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());
