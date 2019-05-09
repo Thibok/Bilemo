@@ -35,28 +35,28 @@ class Phone extends AbstractProduct
 {
     /**
      * @var string
-     *
+     * @access private
      * @ORM\Column(name="model", type="string", length=20)
      */
     private $model;
 
     /**
      * @var int
-     *
+     * @access private
      * @ORM\Column(name="memory", type="integer")
      */
     private $memory;
 
     /**
      * @var string
-     *
+     * @access private
      * @ORM\Column(name="color", type="string", length=20)
      */
     private $color;
 
     /**
      * Set model
-     *
+     * @access public
      * @param string $model
      *
      * @return Phone
@@ -70,7 +70,8 @@ class Phone extends AbstractProduct
 
     /**
      * Get model
-     *
+     * @access public
+     * 
      * @return string
      */
     public function getModel()
@@ -80,7 +81,7 @@ class Phone extends AbstractProduct
 
     /**
      * Set memory
-     *
+     * @access public
      * @param integer $memory
      *
      * @return Phone
@@ -94,7 +95,8 @@ class Phone extends AbstractProduct
 
     /**
      * Get memory
-     *
+     * @access public
+     * 
      * @return int
      */
     public function getMemory()
@@ -104,7 +106,7 @@ class Phone extends AbstractProduct
 
     /**
      * Set color
-     *
+     * @access public
      * @param string $color
      *
      * @return Phone
@@ -118,7 +120,8 @@ class Phone extends AbstractProduct
 
     /**
      * Get color
-     *
+     * @access public
+     * 
      * @return string
      */
     public function getColor()

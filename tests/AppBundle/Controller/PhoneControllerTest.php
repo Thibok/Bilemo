@@ -75,14 +75,21 @@ class PhoneControllerTest extends WebTestCase
 
     /**
      * Test viewAction
-     *
+     * @access public
+     * 
      * @return void
      */
     public function testViewAction()
     {
         $this->initializeBearerAuthorization('main');
-        $this->client->request('GET', '/phones/1');
 
+        $this->client->request('GET', '/phones?limit=1');
+        $response = $this->client->getResponse();
+
+        $body = json_decode($response->getContent(), true);
+        $url = $body['data'][0]['_links']['self']['href'];
+
+        $this->client->request('GET', $url);
         $response = $this->client->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());
@@ -111,7 +118,8 @@ class PhoneControllerTest extends WebTestCase
 
     /**
      * Test viewAction with unknow phone param
-     *
+     * @access public
+     * 
      * @return void
      */
     public function testViewActionWithUnknowPhone()
@@ -130,7 +138,7 @@ class PhoneControllerTest extends WebTestCase
 
     /**
      * Set header Authorization Bearer access token
-     * @access public
+     * @access private
      * @param string $type
      * 
      * @return void
