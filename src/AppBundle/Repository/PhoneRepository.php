@@ -1,7 +1,12 @@
 <?php
 
+/**
+ * Customer Repository
+ */
+
 namespace AppBundle\Repository;
 
+use Pagerfanta\Pagerfanta;
 use AppBundle\Repository\AbstractRepository;
 
 /**
@@ -12,7 +17,16 @@ use AppBundle\Repository\AbstractRepository;
  */
 class PhoneRepository extends AbstractRepository
 {
-    public function getPhones($order = 'ASC', $limit = 10, $page)
+    /**
+     * Get paginate list of Phones
+     * @access public
+     * @param string $order
+     * @param int $limit
+     * @param int $page
+     * 
+     * @return Pagerfanta
+     */
+    public function getPhones($order = 'ASC', $limit = 10, $page = 1)
     {
         $queryBuilder = $this->createQueryBuilder('p')
             ->orderBy('p.id', $order)
