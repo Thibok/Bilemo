@@ -75,7 +75,8 @@ class PhoneControllerTest extends WebTestCase
 
     /**
      * Test viewAction
-     *
+     * @access public
+     * 
      * @return void
      */
     public function testViewAction()
@@ -111,7 +112,8 @@ class PhoneControllerTest extends WebTestCase
 
     /**
      * Test viewAction with unknow phone param
-     *
+     * @access public
+     * 
      * @return void
      */
     public function testViewActionWithUnknowPhone()
@@ -130,7 +132,7 @@ class PhoneControllerTest extends WebTestCase
 
     /**
      * Set header Authorization Bearer access token
-     * @access public
+     * @access private
      * @param string $type
      * 
      * @return void

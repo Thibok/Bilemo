@@ -15,7 +15,7 @@ abstract class AbstractProduct
 {
     /**
      * @var int
-     *
+     * @access protected
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -24,28 +24,29 @@ abstract class AbstractProduct
 
     /**
      * @var string
-     *
+     * @access protected
      * @ORM\Column(name="brand", type="string", length=50)
      */
     protected $brand;
 
     /**
      * @var string
-     *
+     * @access protected
      * @ORM\Column(name="price", type="decimal", precision=6, scale=2)
      */
     protected $price;
 
     /**
      * @var string
-     *
+     * @access protected
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     protected $description;
 
     /**
      * Get id
-     *
+     * @access public
+     * 
      * @return int
      */
     public function getId()
@@ -55,7 +56,7 @@ abstract class AbstractProduct
 
     /**
      * Set brand
-     *
+     * @access public
      * @param string $brand
      *
      * @return Phone
@@ -69,7 +70,8 @@ abstract class AbstractProduct
 
     /**
      * Get brand
-     *
+     * @access public
+     * 
      * @return string
      */
     public function getBrand()
@@ -79,7 +81,7 @@ abstract class AbstractProduct
 
     /**
      * Set price
-     *
+     * @access public
      * @param string $price
      *
      * @return Phone
@@ -93,7 +95,8 @@ abstract class AbstractProduct
 
     /**
      * Get price
-     *
+     * @access public
+     * 
      * @return string
      */
     public function getPrice()
@@ -103,7 +106,7 @@ abstract class AbstractProduct
 
     /**
      * Set description
-     *
+     * @access public
      * @param string $description
      *
      * @return Phone
@@ -117,7 +120,8 @@ abstract class AbstractProduct
 
     /**
      * Get description
-     *
+     * @access public
+     * 
      * @return string
      */
     public function getDescription()

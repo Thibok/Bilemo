@@ -84,7 +84,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
 
     /**
      * Set header Authorization Bearer access token
-     * @access public
+     * @access private
      * @param string $type
      * 
      * @return void

@@ -94,3 +94,7 @@ fos_rest:
     exception:
         enabled: true
         exception_controller: 'fos_rest.exception.controller:showAction'
+        codes:
+           { AppBundle\Exception\ResourceValidationException: 400 }
+        messages:
+           { AppBundle\Exception\ResourceValidationException: true }

@@ -62,7 +62,7 @@ class User implements UserInterface
 
     /**
      * Constructor
-     *
+     * @access public
      * @param string $facebookId
      * @param string $firstName
      * @param string $lastName
