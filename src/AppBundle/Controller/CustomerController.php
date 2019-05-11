@@ -7,6 +7,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Customer;
+use AppBundle\Representation\Customers;
+use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Exception\ResourceValidationException;
@@ -73,6 +75,44 @@ class CustomerController extends FOSRestController
         $manager->flush();
 
         return;
+    }
+
+    /**
+     * @access public
+     * @param ParamFetcher $paramFetcher
+     * @Rest\Get("/customers", name="bi_list_customers")
+     * @Rest\QueryParam(
+     *     name="order",
+     *     requirements="asc|desc",
+     *     default="asc",
+     *     description="Sort order (asc or desc)"
+     * )
+     * @Rest\QueryParam(
+     *     name="limit",
+     *     requirements="^[1-9]+[0-9]*",
+     *     default="5",
+     *     description="Max number of customers per page."
+     * )
+     * @Rest\QueryParam(
+     *     name="page",
+     *     requirements="^[1-9]+[0-9]*",
+     *     default="1",
+     *     description="The current page"
+     * )
+     * @Rest\View()
+     * 
+     * @return Response
+     */
+    public function listAction(ParamFetcher $paramFetcher)
+    {
+        $pager = $this->getDoctrine()->getRepository('AppBundle:Customer')->getCustomersOfUser(
+            $paramFetcher->get('order'),
+            $paramFetcher->get('limit'),
+            $paramFetcher->get('page'),
+            $this->getUser()->getId()
+        );
+
+        return new Customers($pager);
     }
 
     /**

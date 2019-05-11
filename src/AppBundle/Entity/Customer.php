@@ -38,6 +38,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @Hateoas\Relation(
  *     "authenticated_user",
  *     embedded = @Hateoas\Embedded("expr(service('security.token_storage').getToken().getUser())"),
+ *     exclusion = @Hateoas\Exclusion(
+ *         excludeIf = "expr(service('request_stack').getCurrentRequest().get('_route') == 'bi_list_customers')"
+ *     )
  * )
  * @UniqueEntity(fields="email", message="This email address is already in use !")
  */
