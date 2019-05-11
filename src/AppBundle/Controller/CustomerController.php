@@ -12,6 +12,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Exception\ResourceValidationException;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * CustomerController
@@ -47,6 +48,31 @@ class CustomerController extends FOSRestController
         $em->flush();
 
         return $customer;
+    }
+
+    /**
+     * @access public
+     * @param Customer $customer
+     * @Rest\View(StatusCode = 204)
+     * @Rest\Delete(
+     *     path = "/customers/{id}",
+     *     name = "bi_delete_customer",
+     *     requirements = {"id"="\d+"}
+     * )
+     * 
+     * @return void
+     */
+    public function deleteAction(Customer $customer)
+    {
+        if ($customer->getUser() !== $this->getUser()) {
+            throw new AccessDeniedException('This resource is not accessible to you');
+        }
+
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($customer);
+        $manager->flush();
+
+        return;
     }
 
     /**

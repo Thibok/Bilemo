@@ -71,6 +71,7 @@ class CustomerControllerTest extends WebTestCase
         $this->assertEquals('France', $body['country']);
         $this->assertSame('40 bd Raspail', $body['address']);
         $this->assertNotNull($body['_links']['self']['href']);
+        $this->assertNotNull($body['_links']['delete']['href']);
 
         $this->assertNotNull($authenticatedUser['id']);
         $this->assertSame('Bryan', $authenticatedUser['first_name']);
@@ -185,6 +186,54 @@ class CustomerControllerTest extends WebTestCase
     }
 
     /**
+     * Test deleteAction
+     * @access public
+     * 
+     * @return void
+     */
+    public function testDeleteAction()
+    {
+        $this->initializeBearerAuthorization('secondary');
+
+        $this->client->request('DELETE', '/customers/2');
+        $response = $this->client->getResponse();
+
+        $this->assertEquals(204, $response->getStatusCode());
+
+        $this->assertEmpty($response->getContent());
+
+        $this->client->request('DELETE', '/customers/2');
+        $response = $this->client->getResponse();
+
+        $this->assertEquals(404, $response->getStatusCode());
+        $body = json_decode($response->getContent(), true);
+
+        $this->assertEquals(404, $body['code']);
+        $this->assertSame('This resource does not exist', $body['message']);
+    }
+
+    /**
+     * Test to delete a customer with the not owner user
+     * @access public
+     * 
+     * @return void
+     */
+    public function testDeleteActionWithBadUser()
+    {
+        $this->initializeBearerAuthorization('secondary');
+
+        $this->client->request('DELETE', '/customers/1');
+        $response = $this->client->getResponse();
+
+        $this->assertEquals(403, $response->getStatusCode());
+
+        $body = json_decode($response->getContent(), true);
+
+        $this->assertEquals(403, $body['code']);
+        $this->assertSame('This resource is not accessible to you', $body['message']);
+    }
+
+    /**
      * Set header Authorization Bearer access token
      * @access private
      * @param string $type
@@ -195,6 +244,10 @@ class CustomerControllerTest extends WebTestCase
     {
         if ($type == 'main') {
             $accessToken = 'Bearer ' .$this->client->getContainer()->getParameter('fb_test_main_access_token');
+        }
+
+        if ($type == 'secondary') {
+            $accessToken = 'Bearer ' .$this->client->getContainer()->getParameter('fb_test_secondary_access_token');
         }
 
         $this->client->setServerParameter('HTTP_Authorization', $accessToken);

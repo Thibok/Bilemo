@@ -24,6 +24,8 @@ class CustomerFixtures extends Fixture implements DependentFixtureInterface
     {
         $firstCustomer = new Customer;
 
+        $secondCustomer = new Customer;
+
         $firstCustomer->setEmail('jeantest@yahoo.com');
         $firstCustomer->setFirstName('Jean');
         $firstCustomer->setLastName('Test');
@@ -32,7 +34,16 @@ class CustomerFixtures extends Fixture implements DependentFixtureInterface
         $firstCustomer->setAddress('52 rue des mimosas');
         $firstCustomer->setUser($this->getReference(UserFixtures::MAIN_TEST_USER_REFERENCE));
 
+        $secondCustomer->setEmail('francoistest@orange.fr');
+        $secondCustomer->setFirstName('Francois');
+        $secondCustomer->setLastName('Test');
+        $secondCustomer->setCity('Lille');
+        $secondCustomer->setCountry('France');
+        $secondCustomer->setAddress('78 rue des marguerite');
+        $secondCustomer->setUser($this->getReference(UserFixtures::SECONDARY_TEST_USER_REFERENCE));
+
         $manager->persist($firstCustomer);
+        $manager->persist($secondCustomer);
 
         $manager->flush();
     }
