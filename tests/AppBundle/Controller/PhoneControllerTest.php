@@ -6,6 +6,7 @@
 
 namespace Tests\AppBundle\Controller;
 
+use AppBundle\Entity\Phone;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
@@ -81,13 +82,11 @@ class PhoneControllerTest extends WebTestCase
      */
     public function testViewAction()
     {
+        $manager = $this->client->getContainer()->get('doctrine')->getManager();
+        $phone = $manager->getRepository(Phone::class)->findOneByModel('IPhone XR');
+        $url = '/phones/'.$phone->getId();
+
         $this->initializeBearerAuthorization('main');
-
-        $this->client->request('GET', '/phones?limit=1');
-        $response = $this->client->getResponse();
-
-        $body = json_decode($response->getContent(), true);
-        $url = $body['data'][0]['_links']['self']['href'];
 
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();

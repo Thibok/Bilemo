@@ -6,6 +6,7 @@
 
 namespace Tests\AppBundle\Controller;
 
+use AppBundle\Entity\Customer;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
@@ -193,9 +194,13 @@ class CustomerControllerTest extends WebTestCase
      */
     public function testDeleteAction()
     {
+        $manager = $this->client->getContainer()->get('doctrine')->getManager();
+        $customer = $manager->getRepository(Customer::class)->findOneByEmail('francoistest@orange.fr');
+        $url = '/customers/'.$customer->getId();
+
         $this->initializeBearerAuthorization('secondary');
 
-        $this->client->request('DELETE', '/customers/2');
+        $this->client->request('DELETE', $url);
         $response = $this->client->getResponse();
 
         $this->assertEquals(204, $response->getStatusCode());
@@ -220,9 +225,13 @@ class CustomerControllerTest extends WebTestCase
      */
     public function testDeleteActionWithBadUser()
     {
+        $manager = $this->client->getContainer()->get('doctrine')->getManager();
+        $customer = $manager->getRepository(Customer::class)->findOneByEmail('jeantest@yahoo.com');
+        $url = '/customers/'.$customer->getId();
+
         $this->initializeBearerAuthorization('secondary');
 
-        $this->client->request('DELETE', '/customers/1');
+        $this->client->request('DELETE', $url);
         $response = $this->client->getResponse();
 
         $this->assertEquals(403, $response->getStatusCode());
@@ -231,6 +240,51 @@ class CustomerControllerTest extends WebTestCase
 
         $this->assertEquals(403, $body['code']);
         $this->assertSame('This resource is not accessible to you', $body['message']);
+    }
+
+    /**
+     * Test listAction
+     * @access public
+     * 
+     * @return void
+     */
+    public function testListAction()
+    {
+        $this->initializeBearerAuthorization('main');
+        $this->client->request('GET', '/customers');
+
+        $response = $this->client->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $body = json_decode($response->getContent(), true);
+        $data = $body['data'];
+        $meta = $body['meta'];
+        $authenticatedUser = $body['_embedded']['authenticated_user'];
+
+        $this->assertEquals(5, count($data));
+
+        $this->assertNotNull($data[0]['id']);
+        $this->assertSame('jeantest@yahoo.com', $data[0]['email']);
+        $this->assertSame('Jean', $data[0]['first_name']);
+        $this->assertSame('Test', $data[0]['last_name']);
+        $this->assertSame('Bordeaux', $data[0]['city']);
+        $this->assertEquals('France', $data[0]['country']);
+        $this->assertSame('52 rue des mimosas', $data[0]['address']);
+        $this->assertNotNull($data[0]['_links']['self']['href']);
+        $this->assertNotNull($data[0]['_links']['delete']['href']);
+
+        $this->assertEquals(5, $meta['limit']);
+        $this->assertEquals(5, $meta['current_items']);
+        $this->assertEquals(11, $meta['total_items']);
+        $this->assertEquals(1, $meta['page']);
+
+        $this->assertNotNull($authenticatedUser['id']);
+        $this->assertSame('Bryan', $authenticatedUser['first_name']);
+        $this->assertSame('Test', $authenticatedUser['last_name']);
+        $this->assertNotNull($authenticatedUser['facebook_id']);
+        $this->assertSame('ROLE_USER', $authenticatedUser['roles'][0]);
+        $this->assertNotNull($authenticatedUser['access_token']);
     }
 
     /**

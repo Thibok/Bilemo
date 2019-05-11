@@ -47,6 +47,14 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
             array(
                 'POST',
                 '/customers'
+            ),
+            array(
+                'GET',
+                '/customers'
+            ),
+            array(
+                'DELETE',
+                '/customers/1'
             )
         );
     }
