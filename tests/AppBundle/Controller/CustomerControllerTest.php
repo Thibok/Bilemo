@@ -133,7 +133,7 @@ class CustomerControllerTest extends WebTestCase
      * @access public
      * Bad values for addAction
      *
-     * @return void
+     * @return array
      */
     public function addActionBadValues()
     {
@@ -218,31 +218,6 @@ class CustomerControllerTest extends WebTestCase
     }
 
     /**
-     * Test to delete a customer with the not owner user
-     * @access public
-     * 
-     * @return void
-     */
-    public function testDeleteActionWithBadUser()
-    {
-        $manager = $this->client->getContainer()->get('doctrine')->getManager();
-        $customer = $manager->getRepository(Customer::class)->findOneByEmail('jeantest@yahoo.com');
-        $url = '/customers/'.$customer->getId();
-
-        $this->initializeBearerAuthorization('secondary');
-
-        $this->client->request('DELETE', $url);
-        $response = $this->client->getResponse();
-
-        $this->assertEquals(403, $response->getStatusCode());
-
-        $body = json_decode($response->getContent(), true);
-
-        $this->assertEquals(403, $body['code']);
-        $this->assertSame('This resource is not accessible to you', $body['message']);
-    }
-
-    /**
      * Test listAction
      * @access public
      * 
@@ -285,6 +260,93 @@ class CustomerControllerTest extends WebTestCase
         $this->assertNotNull($authenticatedUser['facebook_id']);
         $this->assertSame('ROLE_USER', $authenticatedUser['roles'][0]);
         $this->assertNotNull($authenticatedUser['access_token']);
+    }
+
+    /**
+     * Test viewAction
+     * @access public
+     * 
+     * @return void
+     */
+    public function testViewAction()
+    {
+        $manager = $this->client->getContainer()->get('doctrine')->getManager();
+        $customer = $manager->getRepository(Customer::class)->findOneByEmail('jeantest@yahoo.com');
+        $url = '/customers/'.$customer->getId();
+
+        $this->initializeBearerAuthorization('main');
+
+        $this->client->request('GET', $url);
+        $response = $this->client->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $body = json_decode($response->getContent(), true);
+        $authenticatedUser = $body['_embedded']['authenticated_user'];
+
+        $description = 'Apple make the best phone !';
+
+        $this->assertNotNull($body['id']);
+        $this->assertSame('jeantest@yahoo.com', $body['email']);
+        $this->assertSame('Jean', $body['first_name']);
+        $this->assertSame('Test', $body['last_name']);
+        $this->assertSame('Bordeaux', $body['city']);
+        $this->assertEquals('France', $body['country']);
+        $this->assertSame('52 rue des mimosas', $body['address']);
+        $this->assertNotNull($body['_links']['self']['href']);
+        $this->assertNotNull($body['_links']['delete']['href']);
+
+        $this->assertNotNull($authenticatedUser['id']);
+        $this->assertSame('Bryan', $authenticatedUser['first_name']);
+        $this->assertSame('Test', $authenticatedUser['last_name']);
+        $this->assertNotNull($authenticatedUser['facebook_id']);
+        $this->assertSame('ROLE_USER', $authenticatedUser['roles'][0]);
+        $this->assertNotNull($authenticatedUser['access_token']);
+    }
+
+    /**
+     * Test to access a ressource with not owner user
+     * @access public
+     * @param string $method
+     * @dataProvider httpMethodValues
+     * 
+     * @return void
+     */
+    public function testToAccessARessourceWithNotOwnerUser($method)
+    {
+        $manager = $this->client->getContainer()->get('doctrine')->getManager();
+        $customer = $manager->getRepository(Customer::class)->findOneByEmail('jeantest@yahoo.com');
+        $url = '/customers/'.$customer->getId();
+
+        $this->initializeBearerAuthorization('secondary');
+
+        $this->client->request($method, $url);
+        $response = $this->client->getResponse();
+
+        $this->assertEquals(403, $response->getStatusCode());
+
+        $body = json_decode($response->getContent(), true);
+
+        $this->assertEquals(403, $body['code']);
+        $this->assertSame('This resource is not accessible to you', $body['message']);
+    }
+
+    /**
+     * @access public
+     * Method (GET,DELETE,etc...) for testToAccessARessourceWithNotOwnerUser
+     *
+     * @return array
+     */
+    public function httpMethodValues()
+    {
+        return [
+            [
+                'GET',
+            ],
+            [
+                'DELETE',
+            ],
+        ];
     }
 
     /**
