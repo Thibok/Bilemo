@@ -101,7 +101,7 @@ class CustomerController extends FOSRestController
      * )
      * @Rest\View()
      * 
-     * @return Response
+     * @return Customers
      */
     public function listAction(ParamFetcher $paramFetcher)
     {
@@ -117,16 +117,22 @@ class CustomerController extends FOSRestController
 
     /**
      * @access public
+     * @param Customer $customer
      * @Rest\Get(
      *     path = "/customers/{id}",
      *     name = "bi_view_customer",
      *     requirements = {"id"="\d+"}
      * )
+     * @Rest\View()
      * 
-     * @return Response
+     * @return Customer
      */
-    public function viewAction()
+    public function viewAction(Customer $customer)
     {
+        if ($customer->getUser() !== $this->getUser()) {
+            throw new AccessDeniedException('This resource is not accessible to you');
+        }
 
+        return $customer;
     }
 }
