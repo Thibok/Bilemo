@@ -52,7 +52,7 @@ class FacebookAuthenticator implements SimplePreAuthenticatorInterface, Authenti
         if($bearer = $request->headers->get('Authorization')) {
             $accessToken = substr($bearer, 7);
         } else {
-            throw new CustomUserMessageAuthenticationException('You must be logged to access this page !');
+            throw new CustomUserMessageAuthenticationException('You must be logged to access this resource !');
         }
 
         return new PreAuthenticatedToken(

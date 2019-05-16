@@ -67,7 +67,7 @@ class FacebookRequester
             $response = $this->fbClient->requestFacebookForUser($fields, $accessToken);
         } catch(RequestException $e) {
             if ($e instanceof ClientException) {
-                $userData['error'] = 'Facebook error: Bad request';
+                $userData['error'] = 'Bearer token is expired, malformed or not found';
             } elseif ($e instanceof ConnectException) {
                 $userData['error'] = 'Facebook error: Server not respond';
             }

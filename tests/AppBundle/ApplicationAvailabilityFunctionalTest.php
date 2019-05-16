@@ -75,26 +75,10 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         $this->assertEquals(401, $response->getStatusCode());
 
         $body = json_decode($response->getContent(), true);
-        $message = 'Authentication error: You must be logged to access this page !';
+        $message = 'Authentication error: You must be logged to access this resource !';
 
         $this->assertEquals(401, $body['code']);
         $this->assertSame($message, $body['message']);
-    }
-
-    /**
-     * Set header Authorization Bearer access token
-     * @access private
-     * @param string $type
-     * 
-     * @return void
-     */
-    private function initializeBearerAuthorization($type)
-    {
-        if ($type == 'main') {
-            $accessToken = 'Bearer ' .$this->client->getContainer()->getParameter('fb_test_main_access_token');
-        }
-
-        $this->client->setServerParameter('HTTP_Authorization', $accessToken);
     }
 
     /**

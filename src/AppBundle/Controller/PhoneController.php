@@ -1,30 +1,37 @@
 <?php
 
+/**
+ * PhoneController
+ */
+
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Phone;
 use JMS\Serializer\Serializer;
 use AppBundle\Representation\Phones;
 use FOS\RestBundle\Request\ParamFetcher;
-use JMS\Serializer\SerializationContext;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * PhoneController
+ */
 class PhoneController extends FOSRestController
 {
     /**
+     * View phone details
      * @access public
      * @param Phone $phone
      * @param Serializer $serializer
      * @Rest\Get(
-     *     path = "/phones/{id}",
-     *     name = "bi_view_phone",
-     *     requirements = {"id"="\d+"}
+     *     path="/phones/{id}",
+     *     name="bi_view_phone",
+     *     requirements={"id"="\d+"}
      * )
      * 
-     * @return Response
+     * @return Phone
      */
     public function viewAction(Phone $phone, Serializer $serializer)
     {
@@ -39,6 +46,7 @@ class PhoneController extends FOSRestController
     }
 
     /**
+     * Get list of phones
      * @access public
      * @param ParamFetcher $paramFetcher
      * @param Serializer $serializer
