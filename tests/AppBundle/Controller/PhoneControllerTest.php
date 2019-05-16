@@ -52,26 +52,26 @@ class PhoneControllerTest extends WebTestCase
 
         $description = 'Apple make the best phone !';
 
-        $this->assertNotNull($data[0]['id']);
+        $this->assertNotEmpty($data[0]['id']);
         $this->assertSame('Apple', $data[0]['brand']);
         $this->assertSame('800.00', $data[0]['price']);
         $this->assertSame($description, $data[0]['description']);
         $this->assertSame('IPhone XR', $data[0]['model']);
         $this->assertEquals(64, $data[0]['memory']);
         $this->assertSame('Black', $data[0]['color']);
-        $this->assertNotNull($data[0]['_links']['self']['href']);
+        $this->assertNotEmpty($data[0]['_links']['self']['href']);
 
         $this->assertEquals(5, $meta['limit']);
         $this->assertEquals(5, $meta['current_items']);
         $this->assertEquals(10, $meta['total_items']);
         $this->assertEquals(1, $meta['page']);
 
-        $this->assertNotNull($authenticatedUser['id']);
+        $this->assertNotEmpty($authenticatedUser['id']);
         $this->assertSame('Bryan', $authenticatedUser['first_name']);
         $this->assertSame('Test', $authenticatedUser['last_name']);
-        $this->assertNotNull($authenticatedUser['facebook_id']);
+        $this->assertNotEmpty($authenticatedUser['facebook_id']);
         $this->assertSame('ROLE_USER', $authenticatedUser['roles'][0]);
-        $this->assertNotNull($authenticatedUser['access_token']);
+        $this->assertNotEmpty($authenticatedUser['access_token']);
     }
 
     /**
@@ -98,21 +98,21 @@ class PhoneControllerTest extends WebTestCase
 
         $description = 'Apple make the best phone !';
 
-        $this->assertNotNull($body['id']);
+        $this->assertNotEmpty($body['id']);
         $this->assertSame('Apple', $body['brand']);
         $this->assertSame('800.00', $body['price']);
         $this->assertSame($description, $body['description']);
         $this->assertSame('IPhone XR', $body['model']);
         $this->assertEquals(64, $body['memory']);
         $this->assertSame('Black', $body['color']);
-        $this->assertNotNull($body['_links']['self']['href']);
+        $this->assertNotEmpty($body['_links']['self']['href']);
 
-        $this->assertNotNull($authenticatedUser['id']);
+        $this->assertNotEmpty($authenticatedUser['id']);
         $this->assertSame('Bryan', $authenticatedUser['first_name']);
         $this->assertSame('Test', $authenticatedUser['last_name']);
-        $this->assertNotNull($authenticatedUser['facebook_id']);
+        $this->assertNotEmpty($authenticatedUser['facebook_id']);
         $this->assertSame('ROLE_USER', $authenticatedUser['roles'][0]);
-        $this->assertNotNull($authenticatedUser['access_token']);
+        $this->assertNotEmpty($authenticatedUser['access_token']);
     }
 
     /**

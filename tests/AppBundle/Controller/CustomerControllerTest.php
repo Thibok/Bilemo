@@ -64,22 +64,22 @@ class CustomerControllerTest extends WebTestCase
 
         $description = 'Apple make the best phone !';
 
-        $this->assertNotNull($body['id']);
+        $this->assertNotEmpty($body['id']);
         $this->assertSame('test@email.com', $body['email']);
         $this->assertSame('Enzo', $body['first_name']);
         $this->assertSame('Test', $body['last_name']);
         $this->assertSame('Paris', $body['city']);
         $this->assertEquals('France', $body['country']);
         $this->assertSame('40 bd Raspail', $body['address']);
-        $this->assertNotNull($body['_links']['self']['href']);
-        $this->assertNotNull($body['_links']['delete']['href']);
+        $this->assertNotEmpty($body['_links']['self']['href']);
+        $this->assertNotEmpty($body['_links']['delete']['href']);
 
-        $this->assertNotNull($authenticatedUser['id']);
+        $this->assertNotEmpty($authenticatedUser['id']);
         $this->assertSame('Bryan', $authenticatedUser['first_name']);
         $this->assertSame('Test', $authenticatedUser['last_name']);
-        $this->assertNotNull($authenticatedUser['facebook_id']);
+        $this->assertNotEmpty($authenticatedUser['facebook_id']);
         $this->assertSame('ROLE_USER', $authenticatedUser['roles'][0]);
-        $this->assertNotNull($authenticatedUser['access_token']);
+        $this->assertNotEmpty($authenticatedUser['access_token']);
     }
 
     /**
@@ -239,27 +239,27 @@ class CustomerControllerTest extends WebTestCase
 
         $this->assertEquals(5, count($data));
 
-        $this->assertNotNull($data[0]['id']);
+        $this->assertNotEmpty($data[0]['id']);
         $this->assertSame('jeantest@yahoo.com', $data[0]['email']);
         $this->assertSame('Jean', $data[0]['first_name']);
         $this->assertSame('Test', $data[0]['last_name']);
         $this->assertSame('Bordeaux', $data[0]['city']);
         $this->assertEquals('France', $data[0]['country']);
         $this->assertSame('52 rue des mimosas', $data[0]['address']);
-        $this->assertNotNull($data[0]['_links']['self']['href']);
-        $this->assertNotNull($data[0]['_links']['delete']['href']);
+        $this->assertNotEmpty($data[0]['_links']['self']['href']);
+        $this->assertNotEmpty($data[0]['_links']['delete']['href']);
 
         $this->assertEquals(5, $meta['limit']);
         $this->assertEquals(5, $meta['current_items']);
         $this->assertEquals(11, $meta['total_items']);
         $this->assertEquals(1, $meta['page']);
 
-        $this->assertNotNull($authenticatedUser['id']);
+        $this->assertNotEmpty($authenticatedUser['id']);
         $this->assertSame('Bryan', $authenticatedUser['first_name']);
         $this->assertSame('Test', $authenticatedUser['last_name']);
-        $this->assertNotNull($authenticatedUser['facebook_id']);
+        $this->assertNotEmpty($authenticatedUser['facebook_id']);
         $this->assertSame('ROLE_USER', $authenticatedUser['roles'][0]);
-        $this->assertNotNull($authenticatedUser['access_token']);
+        $this->assertNotEmpty($authenticatedUser['access_token']);
     }
 
     /**
@@ -286,22 +286,22 @@ class CustomerControllerTest extends WebTestCase
 
         $description = 'Apple make the best phone !';
 
-        $this->assertNotNull($body['id']);
+        $this->assertNotEmpty($body['id']);
         $this->assertSame('jeantest@yahoo.com', $body['email']);
         $this->assertSame('Jean', $body['first_name']);
         $this->assertSame('Test', $body['last_name']);
         $this->assertSame('Bordeaux', $body['city']);
         $this->assertEquals('France', $body['country']);
         $this->assertSame('52 rue des mimosas', $body['address']);
-        $this->assertNotNull($body['_links']['self']['href']);
-        $this->assertNotNull($body['_links']['delete']['href']);
+        $this->assertNotEmpty($body['_links']['self']['href']);
+        $this->assertNotEmpty($body['_links']['delete']['href']);
 
-        $this->assertNotNull($authenticatedUser['id']);
+        $this->assertNotEmpty($authenticatedUser['id']);
         $this->assertSame('Bryan', $authenticatedUser['first_name']);
         $this->assertSame('Test', $authenticatedUser['last_name']);
-        $this->assertNotNull($authenticatedUser['facebook_id']);
+        $this->assertNotEmpty($authenticatedUser['facebook_id']);
         $this->assertSame('ROLE_USER', $authenticatedUser['roles'][0]);
-        $this->assertNotNull($authenticatedUser['access_token']);
+        $this->assertNotEmpty($authenticatedUser['access_token']);
     }
 
     /**
