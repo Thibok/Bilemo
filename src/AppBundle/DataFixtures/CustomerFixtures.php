@@ -11,17 +11,37 @@ use AppBundle\DataFixtures\UserFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
 /**
  * CustomerFixtures
  */
-class CustomerFixtures extends Fixture implements DependentFixtureInterface
+class CustomerFixtures extends Fixture implements DependentFixtureInterface, ContainerAwareInterface
 {
+    /**
+     * @var ContainerInterface
+     * @access private
+     */
+    private $container;
+    
     /**
      * @inheritDoc
      */
     public function load(ObjectManager $manager)
     {
+        $env = $this->container->get('kernel')->getEnvironment();
+
+        if ($env == 'test') {
+            $mainUser = $this->getReference(UserFixtures::MAIN_TEST_USER_REFERENCE);
+            $secondaryUser = $this->getReference(UserFixtures::SECONDARY_TEST_USER_REFERENCE);
+        }
+
+        if ($env == 'dev') {
+            $mainUser = $this->getReference(UserFixtures::MAIN_DEMO_USER_REFERENCE);
+            $secondaryUser = $this->getReference(UserFixtures::SECONDARY_DEMO_USER_REFERENCE);
+        }
+
         $firstCustomer = new Customer;
         $secondCustomer = new Customer;
         $thirdCustomer = new Customer;
@@ -40,7 +60,7 @@ class CustomerFixtures extends Fixture implements DependentFixtureInterface
         $firstCustomer->setCity('Bordeaux');
         $firstCustomer->setCountry('France');
         $firstCustomer->setAddress('52 rue des mimosas');
-        $firstCustomer->setUser($this->getReference(UserFixtures::MAIN_TEST_USER_REFERENCE));
+        $firstCustomer->setUser($mainUser);
 
         $secondCustomer->setEmail('francoistest@orange.fr');
         $secondCustomer->setFirstName('Francois');
@@ -48,7 +68,7 @@ class CustomerFixtures extends Fixture implements DependentFixtureInterface
         $secondCustomer->setCity('Lille');
         $secondCustomer->setCountry('France');
         $secondCustomer->setAddress('78 rue des marguerite');
-        $secondCustomer->setUser($this->getReference(UserFixtures::SECONDARY_TEST_USER_REFERENCE));
+        $secondCustomer->setUser($secondaryUser);
 
         $thirdCustomer->setEmail('seb852@gmail.com');
         $thirdCustomer->setFirstName('Sebastien');
@@ -56,7 +76,7 @@ class CustomerFixtures extends Fixture implements DependentFixtureInterface
         $thirdCustomer->setCity('Paris');
         $thirdCustomer->setCountry('France');
         $thirdCustomer->setAddress('2 impasse Jean Mermoz');
-        $thirdCustomer->setUser($this->getReference(UserFixtures::MAIN_TEST_USER_REFERENCE));
+        $thirdCustomer->setUser($mainUser);
 
         $fourthCustomer->setEmail('fred356@hotmail.com');
         $fourthCustomer->setFirstName('Frederic');
@@ -64,7 +84,7 @@ class CustomerFixtures extends Fixture implements DependentFixtureInterface
         $fourthCustomer->setCity('Bordeaux');
         $fourthCustomer->setCountry('France');
         $fourthCustomer->setAddress('40 rue des mimosas');
-        $fourthCustomer->setUser($this->getReference(UserFixtures::MAIN_TEST_USER_REFERENCE));
+        $fourthCustomer->setUser($mainUser);
 
         $fifthCustomer->setEmail('odili789@yahoo.com');
         $fifthCustomer->setFirstName('Odile');
@@ -72,7 +92,7 @@ class CustomerFixtures extends Fixture implements DependentFixtureInterface
         $fifthCustomer->setCity('Lille');
         $fifthCustomer->setCountry('France');
         $fifthCustomer->setAddress('20 rue des paquerette');
-        $fifthCustomer->setUser($this->getReference(UserFixtures::MAIN_TEST_USER_REFERENCE));
+        $fifthCustomer->setUser($mainUser);
 
         $sixthCustomer->setEmail('jeanjean@gmail.com');
         $sixthCustomer->setFirstName('Jean');
@@ -80,7 +100,7 @@ class CustomerFixtures extends Fixture implements DependentFixtureInterface
         $sixthCustomer->setCity('Montpellier');
         $sixthCustomer->setCountry('France');
         $sixthCustomer->setAddress('12 rue de la gare');
-        $sixthCustomer->setUser($this->getReference(UserFixtures::MAIN_TEST_USER_REFERENCE));
+        $sixthCustomer->setUser($mainUser);
 
         $seventhCustomer->setEmail('alex563@hotmail.com');
         $seventhCustomer->setFirstName('Alexandre');
@@ -88,7 +108,7 @@ class CustomerFixtures extends Fixture implements DependentFixtureInterface
         $seventhCustomer->setCity('Bordeaux');
         $seventhCustomer->setCountry('France');
         $seventhCustomer->setAddress('52 rue des mimosas');
-        $seventhCustomer->setUser($this->getReference(UserFixtures::MAIN_TEST_USER_REFERENCE));
+        $seventhCustomer->setUser($mainUser);
 
         $eighthCustomer->setEmail('gerard85@orange.com');
         $eighthCustomer->setFirstName('Gerard');
@@ -96,7 +116,7 @@ class CustomerFixtures extends Fixture implements DependentFixtureInterface
         $eighthCustomer->setCity('St-Brieuc');
         $eighthCustomer->setCountry('France');
         $eighthCustomer->setAddress('8 rue de la falaise');
-        $eighthCustomer->setUser($this->getReference(UserFixtures::MAIN_TEST_USER_REFERENCE));
+        $eighthCustomer->setUser($mainUser);
 
         $ninthCustomer->setEmail('alain520@yahoo.com');
         $ninthCustomer->setFirstName('Alain');
@@ -104,7 +124,7 @@ class CustomerFixtures extends Fixture implements DependentFixtureInterface
         $ninthCustomer->setCity('Toulouse');
         $ninthCustomer->setCountry('France');
         $ninthCustomer->setAddress('42 bd du grand test');
-        $ninthCustomer->setUser($this->getReference(UserFixtures::MAIN_TEST_USER_REFERENCE));
+        $ninthCustomer->setUser($mainUser);
 
         $tenthCustomer->setEmail('myriam523@gmail.com');
         $tenthCustomer->setFirstName('Myriam');
@@ -112,7 +132,7 @@ class CustomerFixtures extends Fixture implements DependentFixtureInterface
         $tenthCustomer->setCity('Lyon');
         $tenthCustomer->setCountry('France');
         $tenthCustomer->setAddress('20 avenue des pupilles');
-        $tenthCustomer->setUser($this->getReference(UserFixtures::MAIN_TEST_USER_REFERENCE));
+        $tenthCustomer->setUser($mainUser);
 
         $eleventhCustomer->setEmail('caro231@gmail.com');
         $eleventhCustomer->setFirstName('Caroline');
@@ -120,7 +140,7 @@ class CustomerFixtures extends Fixture implements DependentFixtureInterface
         $eleventhCustomer->setCity('Nice');
         $eleventhCustomer->setCountry('France');
         $eleventhCustomer->setAddress('89 rue de la cote');
-        $eleventhCustomer->setUser($this->getReference(UserFixtures::MAIN_TEST_USER_REFERENCE));
+        $eleventhCustomer->setUser($mainUser);
 
         $manager->persist($firstCustomer);
         $manager->persist($secondCustomer);
@@ -145,5 +165,13 @@ class CustomerFixtures extends Fixture implements DependentFixtureInterface
         return array(
             UserFixtures::class,
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
     }
 }

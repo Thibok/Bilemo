@@ -44,10 +44,10 @@ class CustomerController extends FOSRestController
 
         $customer->setUser($this->getUser());
 
-        $em = $this->getDoctrine()->getManager();
+        $manager = $this->getDoctrine()->getManager();
 
-        $em->persist($customer);
-        $em->flush();
+        $manager->persist($customer);
+        $manager->flush();
 
         return $customer;
     }

@@ -62,8 +62,6 @@ class CustomerControllerTest extends WebTestCase
         $body = json_decode($response->getContent(), true);
         $authenticatedUser = $body['_embedded']['authenticated_user'];
 
-        $description = 'Apple make the best phone !';
-
         $this->assertNotEmpty($body['id']);
         $this->assertSame('test@email.com', $body['email']);
         $this->assertSame('Enzo', $body['first_name']);
@@ -283,8 +281,6 @@ class CustomerControllerTest extends WebTestCase
 
         $body = json_decode($response->getContent(), true);
         $authenticatedUser = $body['_embedded']['authenticated_user'];
-
-        $description = 'Apple make the best phone !';
 
         $this->assertNotEmpty($body['id']);
         $this->assertSame('jeantest@yahoo.com', $body['email']);
