@@ -8,12 +8,14 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @Serializer\ExclusionPolicy("all")
  */
 class User implements UserInterface
 {
@@ -23,6 +25,8 @@ class User implements UserInterface
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Serializer\Since("1.0")
+     * @Serializer\Expose
      */
     private $id;
 
@@ -30,6 +34,8 @@ class User implements UserInterface
      * @var string
      * @access private
      * @ORM\Column(name="first_name", type="string", length=40)
+     * @Serializer\Since("1.0")
+     * @Serializer\Expose
      */
     private $firstName;
 
@@ -37,6 +43,8 @@ class User implements UserInterface
      * @var string
      * @access private
      * @ORM\Column(name="last_name", type="string", length=40)
+     * @Serializer\Since("1.0")
+     * @Serializer\Expose
      */
     private $lastName;
 
@@ -44,6 +52,8 @@ class User implements UserInterface
      * @var string
      * @access private
      * @ORM\Column(name="facebook_id", type="string", length=255, unique=true)
+     * @Serializer\Since("1.0")
+     * @Serializer\Expose
      */
     private $facebookId;
 
@@ -51,12 +61,16 @@ class User implements UserInterface
      * @var array
      * @access private
      * @ORM\Column(name="roles", type="array")
+     * @Serializer\Since("1.0")
+     * @Serializer\Expose
      */
     private $roles;
 
     /**
      * @var string
      * @access private
+     * @Serializer\Since("1.0")
+     * @Serializer\Expose
      */
     private $accessToken;
 

@@ -9,6 +9,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\AbstractProduct;
 use Hateoas\Configuration\Annotation as Hateoas;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Phone
@@ -30,6 +31,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *         excludeIf = "expr(service('request_stack').getCurrentRequest().get('_route') == 'bi_list_phones')"
  *     )
  * )
+ * @Serializer\ExclusionPolicy("all")
  */
 class Phone extends AbstractProduct
 {
@@ -37,6 +39,8 @@ class Phone extends AbstractProduct
      * @var string
      * @access private
      * @ORM\Column(name="model", type="string", length=20)
+     * @Serializer\Expose
+     * @Serializer\Since("1.0")
      */
     private $model;
 
@@ -44,6 +48,8 @@ class Phone extends AbstractProduct
      * @var int
      * @access private
      * @ORM\Column(name="memory", type="integer")
+     * @Serializer\Expose
+     * @Serializer\Since("1.0")
      */
     private $memory;
 
@@ -51,6 +57,8 @@ class Phone extends AbstractProduct
      * @var string
      * @access private
      * @ORM\Column(name="color", type="string", length=20)
+     * @Serializer\Expose
+     * @Serializer\Since("1.0")
      */
     private $color;
 

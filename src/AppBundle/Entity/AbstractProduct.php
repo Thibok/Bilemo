@@ -7,9 +7,11 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * AbstractProduct
+ * @Serializer\ExclusionPolicy("all")
  */
 abstract class AbstractProduct
 {
@@ -19,6 +21,8 @@ abstract class AbstractProduct
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Serializer\Expose
+     * @Serializer\Since("1.0")
      */
     protected $id;
 
@@ -26,6 +30,8 @@ abstract class AbstractProduct
      * @var string
      * @access protected
      * @ORM\Column(name="brand", type="string", length=50)
+     * @Serializer\Expose
+     * @Serializer\Since("1.0")
      */
     protected $brand;
 
@@ -33,6 +39,8 @@ abstract class AbstractProduct
      * @var string
      * @access protected
      * @ORM\Column(name="price", type="decimal", precision=6, scale=2)
+     * @Serializer\Expose
+     * @Serializer\Since("1.0")
      */
     protected $price;
 
@@ -40,6 +48,8 @@ abstract class AbstractProduct
      * @var string
      * @access protected
      * @ORM\Column(name="description", type="text", nullable=true)
+     * @Serializer\Expose
+     * @Serializer\Since("1.0")
      */
     protected $description;
 

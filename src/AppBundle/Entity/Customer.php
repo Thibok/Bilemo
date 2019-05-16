@@ -53,6 +53,7 @@ class Customer
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Serializer\Expose
+     * @Serializer\Since("1.0")
      */
     private $id;
 
@@ -69,6 +70,7 @@ class Customer
      * )
      * @Assert\Email(message = "Please enter a valid email address !")
      * @Serializer\Expose
+     * @Serializer\Since("1.0")
      */
     private $email;
 
@@ -88,6 +90,7 @@ class Customer
      *      message = "The first name can only contain letters and a dash"
      * )
      * @Serializer\Expose
+     * @Serializer\Since("1.0")
      */
     private $firstName;
 
@@ -107,6 +110,7 @@ class Customer
      *      message = "The last name can only contain letters and a dash"
      * )
      * @Serializer\Expose
+     * @Serializer\Since("1.0")
      */
     private $lastName;
 
@@ -126,6 +130,7 @@ class Customer
      *      message = "The city can only contain letters and a dash"
      * )
      * @Serializer\Expose
+     * @Serializer\Since("1.0")
      */
     private $city;
 
@@ -145,6 +150,7 @@ class Customer
      *      message = "The country can only contain letters and a dash"
      * )
      * @Serializer\Expose
+     * @Serializer\Since("1.0")
      */
     private $country;
 
@@ -164,6 +170,7 @@ class Customer
      *      message = "The address can only contain letters, dashes, numbers, spaces"
      * )
      * @Serializer\Expose
+     * @Serializer\Since("1.0")
      */
     private $address;
 
