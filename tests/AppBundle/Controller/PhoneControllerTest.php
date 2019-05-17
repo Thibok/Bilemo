@@ -67,8 +67,8 @@ class PhoneControllerTest extends WebTestCase
         $this->assertEquals(1, $meta['page']);
 
         $this->assertNotEmpty($authenticatedUser['id']);
-        $this->assertSame('Bryan', $authenticatedUser['first_name']);
-        $this->assertSame('Test', $authenticatedUser['last_name']);
+        $this->assertNotEmpty($authenticatedUser['first_name']);
+        $this->assertNotEmpty($authenticatedUser['last_name']);
         $this->assertNotEmpty($authenticatedUser['facebook_id']);
         $this->assertSame('ROLE_USER', $authenticatedUser['roles'][0]);
         $this->assertNotEmpty($authenticatedUser['access_token']);
@@ -108,8 +108,8 @@ class PhoneControllerTest extends WebTestCase
         $this->assertNotEmpty($body['_links']['self']['href']);
 
         $this->assertNotEmpty($authenticatedUser['id']);
-        $this->assertSame('Bryan', $authenticatedUser['first_name']);
-        $this->assertSame('Test', $authenticatedUser['last_name']);
+        $this->assertNotEmpty($authenticatedUser['first_name']);
+        $this->assertNotEmpty($authenticatedUser['last_name']);
         $this->assertNotEmpty($authenticatedUser['facebook_id']);
         $this->assertSame('ROLE_USER', $authenticatedUser['roles'][0]);
         $this->assertNotEmpty($authenticatedUser['access_token']);
