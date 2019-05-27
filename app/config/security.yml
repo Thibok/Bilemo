@@ -1,0 +1,12 @@
+security:
+    providers:
+        facebook_user_provider:
+            id: AppBundle\Provider\FacebookUserProvider
+
+    firewalls:
+        secured_area:
+            pattern: ^/
+            stateless: true
+            simple_preauth:
+                authenticator: AppBundle\Authenticator\FacebookAuthenticator
+            provider: facebook_user_provider

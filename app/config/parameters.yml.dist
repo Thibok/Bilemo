@@ -1,0 +1,20 @@
+# This file is a "template" of what your parameters.yml file should look like
+# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
+# https://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+parameters:
+    database_host: 127.0.0.1
+    database_port: ~
+    database_name: symfony
+    database_user: root
+    database_password: ~
+    # You should uncomment this if you want to use pdo_sqlite
+    #database_path: '%kernel.project_dir%/var/data/data.sqlite'
+
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: ~
+    mailer_password: ~
+    secret: ThisTokenIsNotSoSecretChangeIt
+    fb_app_secret: yourFacebookAppSecret
+    fb_test_main_access_token: EAAH7VdwxIAUBABQcSKqh2ZB1CUrFs6rMA1bsGPb2HWbM0ZCcc6z2accsYwRtC5XNy4M0UBYRueAbZAZCdIfmH2amRY6P7kBotcwuZCUjsSIZCO4uxZAYbYpkps5eZCWWn84AmIlyBBZAvDHHM7AK5GUlomURZAmcnKeRyzD7zIEbqJmULQ41iZCWjI1FHcGVB9UtH2y4ZAXES9BIwwPopjSQqFHz
+    fb_test_secondary_access_token: EAAH7VdwxIAUBAICz8OzbVhXYC2oPcBhoRWkVrnZCcLHFs3vTAnAQRKU1hw5LZCxJ8UZCpQ4L9ZA3hTznmR1ZCTXpwZAH9FyjXbttMstzHjZCugx26ZAAY9DuK4rsQYOhNwZAYjHc1ZB2bar6nPhagm55Er6k9crZBcHJhP3zbpKqWcKgPKN7tB6JGpdSB0ZCBdGvLvea4hqrMQfvOP7K78S03XH9
