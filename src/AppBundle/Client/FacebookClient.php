@@ -20,15 +20,31 @@ class FacebookClient
     private $client;
 
     /**
+     * @var string
+     * @access private
+     */
+    private $secretKey;
+
+    /**
+     * @var string
+     * @access private
+     */
+    private $env;
+
+    /**
      * Constructor
      * @access public
      * @param Client $client
+     * @param string $secretKey
+     * @param string $env
      * 
      * @return void
      */
-    public function __construct(Client $client)
+    public function __construct(Client $client, $secretKey, $env)
     {
         $this->client = $client;
+        $this->secretKey = $secretKey;
+        $this->env = $env;
     }
 
     /**
@@ -40,16 +56,24 @@ class FacebookClient
      */
     public function requestFacebookForUser(array $fields, $accessToken)
     {
-        $url = 'https://graph.facebook.com/me?access_token=' .$accessToken. '&fields=';
+        $url = 'https://graph.facebook.com/me?access_token=' .$accessToken;
+
+        if ($this->env != 'test') {
+            $secretProof = hash_hmac('sha256', $accessToken, $this->secretKey);
+            $url .= '&appsecret_proof=' .$secretProof;
+        }
+
+        $url .= '&fields=';
         $fieldsLength = count($fields);
         
         for ($index = 0; $index < $fieldsLength; $index++) { 
             $lastIndex = $fieldsLength - $index;
             if ($lastIndex == 1) {
                 $url .= $fields[$index];
-            } else {
-                $url .= $fields[$index]. ',';
+                break;
             }
+
+            $url .= $fields[$index]. ',';     
         }
 
         return $response = $this->client->get($url);

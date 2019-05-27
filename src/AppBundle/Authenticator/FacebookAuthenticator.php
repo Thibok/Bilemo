@@ -49,11 +49,11 @@ class FacebookAuthenticator implements SimplePreAuthenticatorInterface, Authenti
      */
     public function createToken(Request $request, $providerKey)
     {
-        if($bearer = $request->headers->get('Authorization')) {
-            $accessToken = substr($bearer, 7);
-        } else {
+        if(!$bearer = $request->headers->get('Authorization')) {
             throw new CustomUserMessageAuthenticationException('You must be logged to access this resource !');
         }
+
+        $accessToken = substr($bearer, 7);
 
         return new PreAuthenticatedToken(
             'anon.',

@@ -1,7 +1,0 @@
-PHPUnit 6.5.14 by Sebastian Bergmann and contributors.
-
-.                                                                   1 / 1 (100%){"id":1,"email":"test@email.com","first_name":"Bryan","last_name":"Test","city":"Paris","country":"France","address":"40 bd Raspail","_links":{"self":{"href":"http:\/\/localhost\/customers\/1"}},"_embedded":{"authenticated_user":{"id":2,"first_name":"Bryan","last_name":"Test","facebook_id":"103947877496446","roles":["ROLE_USER"],"access_token":"EAAH7VdwxIAUBAF41ZBGQ7s8mtBg7sa0lBxMrfeZBD3jYFXThDFMmRSLhFER2eoQXotM19NZA18nNL70k5xMhJGjZBVjzZB1AZCMZA1eDWiurlXZAoOBs6vupOCuQR6YuqUwwnsHoZAdWd7R7LrVSBZBVvD6eVwb1pqI5u7dhcbK1AFTJnlYxl4R1oqZCmqwVgYGqzh0doTorvuyyAZDZD"}}}
-
-Time: 477 ms, Memory: 24.00MB
-
-OK (1 test, 1 assertion)

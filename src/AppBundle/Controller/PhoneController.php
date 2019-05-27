@@ -7,13 +7,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Phone;
-use JMS\Serializer\Serializer;
 use AppBundle\Representation\Phones;
 use FOS\RestBundle\Request\ParamFetcher;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 
 /**
  * PhoneController
@@ -30,19 +29,14 @@ class PhoneController extends FOSRestController
      *     name="bi_view_phone",
      *     requirements={"id"="\d+"}
      * )
+     * @Rest\View()
+     * @Cache(smaxage="3600", mustRevalidate=true)
      * 
      * @return Phone
      */
-    public function viewAction(Phone $phone, Serializer $serializer)
+    public function viewAction(Phone $phone)
     {
-        $body = $serializer->serialize($phone, 'json');
-
-        $response = new Response($body);
-
-        $response->setSharedMaxAge(3600);
-        $response->headers->addCacheControlDirective('must-revalidate', true);
-
-        return $response;
+        return $phone;
     }
 
     /**
@@ -69,10 +63,12 @@ class PhoneController extends FOSRestController
      *     default="1",
      *     description="The current page"
      * )
+     * @Rest\View()
+     * @Cache(smaxage="3600", mustRevalidate=true)
      * 
      * @return Response
      */
-    public function listAction(ParamFetcher $paramFetcher, Serializer $serializer)
+    public function listAction(ParamFetcher $paramFetcher)
     {
         $pager = $this->getDoctrine()->getRepository('AppBundle:Phone')->getPhones(
             $paramFetcher->get('order'),
@@ -80,14 +76,6 @@ class PhoneController extends FOSRestController
             $paramFetcher->get('page')
         );
 
-        $phones = new Phones($pager);
-        $body = $serializer->serialize($phones, 'json');
-
-        $response = new Response($body);
-
-        $response->setSharedMaxAge(3600);
-        $response->headers->addCacheControlDirective('must-revalidate', true);
-
-        return $response;
+        return new Phones($pager);
     }
 }

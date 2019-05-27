@@ -34,6 +34,8 @@ services:
     AppBundle\Client\FacebookClient:
         arguments:
             $client: '@csa_guzzle.client.facebook_api'
+            $secretKey: '%fb_app_secret%'
+            $env: '%kernel.environment%'
     
     JMS\Serializer\Serializer: '@jms_serializer'
 

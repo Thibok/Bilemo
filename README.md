@@ -6,7 +6,7 @@ For more help on how Api works, read the <a href="https://app.swaggerhub.com/api
 If you want to use the Frontend app, go <a href="https://github.com/Thibok/Frontend_Bilemo">here</a>
 <h2>Prerequisites</h2>
 <ul>
-  <li>PHP 7</li>
+  <li>PHP 7.3</li>
   <li>Mysql</li>
   <li>Apache</li>
 </ul>

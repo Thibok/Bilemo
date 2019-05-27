@@ -9,12 +9,12 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Customer;
 use AppBundle\Representation\Customers;
 use FOS\RestBundle\Request\ParamFetcher;
+use AppBundle\Exception\BadUserException;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Exception\ResourceValidationException;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * CustomerController
@@ -67,7 +67,7 @@ class CustomerController extends FOSRestController
     public function deleteAction(Customer $customer)
     {
         if ($customer->getUser() !== $this->getUser()) {
-            throw new AccessDeniedException('This resource is not accessible to you');
+            throw new BadUserException('This resource is not accessible to you');
         }
 
         $manager = $this->getDoctrine()->getManager();
@@ -130,7 +130,7 @@ class CustomerController extends FOSRestController
     public function viewAction(Customer $customer)
     {
         if ($customer->getUser() !== $this->getUser()) {
-            throw new AccessDeniedException('This resource is not accessible to you');
+            throw new BadUserException('This resource is not accessible to you');
         }
 
         return $customer;

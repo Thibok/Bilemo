@@ -82,7 +82,7 @@ fos_rest:
         view_response_listener: true
         formats: { json: true, xml: false, rss: false }
         mime_types:
-            json: ['application/json', 'application/json;version=1.0', 'application/json;version=2.0']
+            json: ['application/json', 'application/json;version=1.0']
     serializer:
         serialize_null: true
     versioning:
@@ -103,6 +103,8 @@ fos_rest:
         enabled: true
         exception_controller: 'fos_rest.exception.controller:showAction'
         codes:
-           { AppBundle\Exception\ResourceValidationException: 400 }
+           AppBundle\Exception\ResourceValidationException: 400
+           AppBundle\Exception\BadUserException: 403
         messages:
-           { AppBundle\Exception\ResourceValidationException: true }
+           AppBundle\Exception\ResourceValidationException: true
+           AppBundle\Exception\BadUserException: true
