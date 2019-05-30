@@ -12,7 +12,6 @@ use FOS\RestBundle\Request\ParamFetcher;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 
 /**
  * PhoneController
@@ -30,7 +29,6 @@ class PhoneController extends FOSRestController
      *     requirements={"id"="\d+"}
      * )
      * @Rest\View()
-     * @Cache(smaxage="3600", mustRevalidate=true)
      * 
      * @return Phone
      */
@@ -64,7 +62,6 @@ class PhoneController extends FOSRestController
      *     description="The current page"
      * )
      * @Rest\View()
-     * @Cache(smaxage="3600", mustRevalidate=true)
      * 
      * @return Response
      */
